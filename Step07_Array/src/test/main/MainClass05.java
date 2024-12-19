@@ -30,6 +30,7 @@ public class MainClass05 {
 			//tmp에 있는 Bike 객체의 .ride() 메소드 호출하기
 			tmp.ride();		
 		}
+		
 		System.out.println();
 		//확장for문 ..for문에우측에는 배열을 참조, 좌측에는 타입변수명
 		for(Bike tmp:bikes) {
