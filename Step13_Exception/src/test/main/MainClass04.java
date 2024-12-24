@@ -12,7 +12,6 @@ public class MainClass04 {
 			e.printStackTrace();
 		}
 		 
-		 
 		 System.out.println("main 메소드가 종료됩니다.");
 	}
 }
