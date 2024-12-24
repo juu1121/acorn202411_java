@@ -17,7 +17,7 @@ public class MainClass03 {
 			System.out.println(tmp);
 		}
 		
-		System.out.println("--- ---");
+		System.out.println("---1---");
 		
 		//아래의 동작을 분석해보세요
 		Consumer<String> con = new Consumer<String>() {
@@ -28,15 +28,14 @@ public class MainClass03 {
 				System.out.println(t);
 			}
 		};  
+				
 		/*
 		 * ArrayList 객체의 forEach() 메소드를 호출하면서 Consumer type객체를 전달하면
 		 * 전달된 객체의 accept()메소드를 호출하면서
 		 * ArrayList 객체에 저장된 item을 순서대로 매개변수에 전달해준다
 		 */
 		greets.forEach(con);  //forEach를 호출하면서 동작하나를 전달...(메소드는 단독으로 못있어서->객체의 동작하나를 포장해서 전달)
-		//메소드 하나짜리인 인터페이스 ...추상메소드인가? 
 		//컨슈머타입인con을 전달하면서 forEach에서 accept라는 메소드를 동작함
-		
 		
 		System.out.println("---ㅎ---");
 		//메소드 한개짜리 인터페이스는 함수모양으로 쓸 수있다.
@@ -48,6 +47,7 @@ public class MainClass03 {
 		
 		
 		System.out.println("------");
+		
 		//어떤메소드에서 전달해하하는 내용이 인터페이스라면(메소드 한개짜리) 함수형태로 전달할수있다.
 		greets.forEach((t)->{
 			System.out.println(t);

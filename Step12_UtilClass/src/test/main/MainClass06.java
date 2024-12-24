@@ -25,7 +25,7 @@ public class MainClass06 {
 		members.add(mem3);
 		
 		//4. 반복문을 이용해서 members에 들어있는 회원정보를 출력해보세요.
-		for (MemberDto tmp : members) {
+		for (MemberDto tmp : members) { //확장for문에서 제너릭 잘 사용하기(어레이리스트의 제너릭임)
 			String info = String.format("번호 : %d, 이름 : %s, 주소 : %s",
 					tmp.getNum(), tmp.getName(), tmp.getAddr()); //String타입의 format메소드 ...개수가 유동적..한개두개세개 전달해도 됨/오브젝트니까 어떤타/입도 됨
 			System.out.println(info);
@@ -36,6 +36,7 @@ public class MainClass06 {
 		test(); //아무것도 전달안하면 빈배열 
 		test("kim"); //아이템한개짜리배열
 		test("kim", "lee", "park"); //아이템3개짜리배열
+		
 	}
 	
 	//테스트
