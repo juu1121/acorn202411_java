@@ -37,6 +37,7 @@ public class MyFrame02 extends JFrame{
     	  
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
 			System.out.println("버튼을 눌렀첫");
 			//count를 1 증가시키고
 			count++;
@@ -51,7 +52,6 @@ public class MyFrame02 extends JFrame{
       
       
       
-      //countBtn.adda
       //메소드하나짜리 인터페이스니까 함수식으로 가능 ()->{}
       countBtn.addActionListener((event)->{
     	  System.out.println("버튼을 눌렀다");
