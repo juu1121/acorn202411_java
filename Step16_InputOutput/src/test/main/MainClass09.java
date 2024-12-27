@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 /*
  * C:/Users/acorn/Desktop/playground/myFolder/memo.txt  파일에 저장된 문자열을 읽어와서 콘솔창에 출력하는 예제
  */
@@ -18,6 +19,7 @@ public class MainClass09 {
 			//문자열을 줄단위로 읽어들일수있는객체
 			var br = new BufferedReader(fr);
 			
+			
 			//무한루프돌면서
 			while(true) {
 				String line = br.readLine();
@@ -27,6 +29,7 @@ public class MainClass09 {
 				}
 				//읽어낸 문자열을 한줄씩 콘솔창에 출력
 				System.out.println(line);
+				
 			}
 		} catch(IOException ie) {
 			ie.printStackTrace();

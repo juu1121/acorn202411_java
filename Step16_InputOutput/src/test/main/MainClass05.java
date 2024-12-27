@@ -13,6 +13,7 @@ public class MainClass05 {
 		//OutputStream도 1byte 처리 스트림이다(한글처리불가)
 		OutputStream os = ps;
 		
+		
 		var osw = new OutputStreamWriter(os);
 		
 		try {

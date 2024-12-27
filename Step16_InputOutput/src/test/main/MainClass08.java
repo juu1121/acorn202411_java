@@ -14,6 +14,7 @@ public class MainClass08 {
 		try {
 			//파일로부터 문자열을 읽어들일수있는 FileReader객체 생성
 			var fr = new FileReader(f);
+			
 			//무한루프돌면서
 			while(true) {
 				//문자의 코드값을 읽어들인다
