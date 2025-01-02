@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -20,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import test.dao.MemberDao;
 import test.dto.MemberDto;
 
-public class MemberFrame extends JFrame implements ActionListener {
+public class MemberFrame extends JFrame implements ActionListener, PropertyChangeListener {
 	// 필요한 필드 정의하기
 	JTextField inputName, inputAddr;
 	DefaultTableModel model;
@@ -38,7 +40,7 @@ public class MemberFrame extends JFrame implements ActionListener {
 		inputName = new JTextField(10);
 		inputAddr = new JTextField(10);
 		// JButton
-		JButton addBtn = new JButton("추가");
+		JButton addBtn = new JButton("추가쓰");
 		JButton deleteBtn = new JButton("삭제");
 		// 패널에 5개 UI배치
 		JPanel panel = new JPanel();
@@ -67,7 +69,18 @@ public class MemberFrame extends JFrame implements ActionListener {
 		String[] colNames = { "번호", "이름", "주소" };
 		// 테이블에 연결할 모델객체
 	    //DefaultTableModel model = new DefaultTableModel(); //필드로 선언했음
-		model = new DefaultTableModel();
+		model = new DefaultTableModel() { //DefaultTableModel를 상속받은 익명의 클래스 (메소드를 재정의해서 사용하려고!)
+			@Override
+			public boolean isCellEditable(int row, int column) { //()에 전달되는 row번째로우의, column번쨰칼럼이 수정가능한지 true/false로 리턴
+				//0번째 칼럼은 false를 리턴해서 수정불가능하게 만들고//0번째칼럼은 번호! 바뀌면 안 되는거여서 false를 리턴하게 만듦!
+				if(column == 0) {
+					return false;
+				}else { //그 이외의 경우에는 true를 리턴해서 수정가능하게 만든다.
+					return true;
+				}
+			}
+		};
+		
 		model.setColumnIdentifiers(colNames);
 		model.setRowCount(0);  //데이터가아무것도없을때 빈 로우생김
 		
@@ -89,6 +102,8 @@ public class MemberFrame extends JFrame implements ActionListener {
 		table.getTableHeader().setFont(new Font("Sans-serif", Font.BOLD, 18));
 		table.setFont(new Font("Sans-serif", Font.PLAIN, 16)); //데이터 글자 크기 16
 		table.setRowHeight(25); //각 행의 높이를 조정
+		
+		table.addPropertyChangeListener(this);
 
 	}//여기까지 생성자
 
@@ -152,8 +167,37 @@ public class MemberFrame extends JFrame implements ActionListener {
 			Object[] rowData = { tmp.getNum(), tmp.getName(), tmp.getAddr() };
 			// 테이블에 연결된 모델에 추가하기
 			model.addRow(rowData);
-
 		}
+	}
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) { //얘가 실행되는시점은 row를수정하고->포커스를 잃을떄!
+		/*
+		 * property name이 "tableCellEditor"이고
+		 * table이 수정중이 아닐때
+		 * 현재 포커스가 있는 곳의 정보를 모두 읽어와서 DB에 수정반영하기
+		 */
+		if(evt.getPropertyName().equals("tableCellEditor") && !table.isEditing()) {
+			//현재 포커스가 있는 row의 정보를 DB에 수정반영한다.
+			//변화된 값을 읽어와서 DB에 반영한다.
+			//수정된 칼럼에 있는 row전체의 값을 읽어온다.
+			int selectedIndex=table.getSelectedRow();//현재선택된로우를 읽어와서 0번칼럼1번칼럼2번칼럼의 값을 담기
+			int num=(int)model.getValueAt(selectedIndex, 0);
+			String name = (String)model.getValueAt(selectedIndex, 1);
+			String addr = (String)model.getValueAt(selectedIndex, 2);
+			//읽어온 내용을 MemberDto에 담고
+			MemberDto dto = new MemberDto();
+			dto.setNum(num);
+			dto.setName(name);
+			dto.setAddr(addr);
+			//MemberDao 객체를 이용해서 수정 반영한다.
+			new MemberDao().update(dto);
+			//선택된 포커스 해제
+			table.clearSelection();
+			
+			
+			
+		}
+		
 	}
 
 }

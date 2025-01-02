@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import test.dao.MemberDao;
 import test.dto.MemberDto;
 
+//수정기능도 있어유
 public class GuraFrame extends JFrame implements ActionListener, PropertyChangeListener{
 	//필드
 	JTextField inputName, inputAddr;
