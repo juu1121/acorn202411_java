@@ -8,7 +8,7 @@ public class MainClass {
 	public static void main(String[] args) {
 		
 		System.out.println("Hello, world!");
-		System.out.println("장희주, 세상!");
+		System.out.println("장희주, 세상완료!");
 		//let num=10; 
 		int num=10;
 		//let name="김구라";
